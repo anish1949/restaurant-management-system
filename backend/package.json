@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+ "scripts": {
+  "start": "node src/server.js",
+  "dev": "nodemon src/server.js",
+  "test": "jest",
+  "test:api": "./test-api.sh",
+  "lint": "eslint src/",
+  "format": "prettier --write \"src/**/*.js\"",
+  "db:setup": "psql -h localhost -U restaurant_user -d restaurant_db -f src/config/schema.sql",
+  "db:seed": "psql -h localhost -U restaurant_user -d restaurant_db -f src/config/seed.sql",
+  "db:reset": "npm run db:setup && npm run db:seed",
+  "create:admin": "node src/scripts/createAdmin.js",
+  "logs": "tail -f logs/*.log"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.1",
+    "pg": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

@@ -1,0 +1,23 @@
+                                          Table "public.customers"
+     Column     |            Type             | Collation | Nullable |                Default                
+----------------+-----------------------------+-----------+----------+---------------------------------------
+ id             | integer                     |           | not null | nextval('customers_id_seq'::regclass)
+ phone          | character varying(20)       |           |          | 
+ email          | character varying(100)      |           |          | 
+ full_name      | character varying(100)      |           |          | 
+ loyalty_points | integer                     |           |          | 0
+ total_visits   | integer                     |           |          | 0
+ last_visit     | timestamp without time zone |           |          | 
+ created_at     | timestamp without time zone |           |          | CURRENT_TIMESTAMP
+Indexes:
+    "customers_pkey" PRIMARY KEY, btree (id)
+    "customers_email_key" UNIQUE CONSTRAINT, btree (email)
+    "customers_phone_key" UNIQUE CONSTRAINT, btree (phone)
+    "idx_customers_email" btree (email)
+    "idx_customers_phone" btree (phone)
+Referenced by:
+    TABLE "customer_loyalty" CONSTRAINT "customer_loyalty_customer_id_fkey" FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+    TABLE "loyalty_transactions" CONSTRAINT "loyalty_transactions_customer_id_fkey" FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+    TABLE "orders" CONSTRAINT "orders_customer_id_fkey" FOREIGN KEY (customer_id) REFERENCES customers(id)
+    TABLE "reservations" CONSTRAINT "reservations_customer_id_fkey" FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+
